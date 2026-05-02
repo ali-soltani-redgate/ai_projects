@@ -1,1 +1,13 @@
-This is a test file!
+Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with text generation to produce more accurate and grounded responses from large language models. Instead of relying solely on the knowledge baked into a model during training, RAG allows the model to consult an external knowledge base at inference time.
+
+The process begins with a collection of documents that are split into smaller chunks. Each chunk is then converted into a numerical vector using an embedding model. These vectors are stored in a vector database, which supports fast similarity search.
+
+When a user asks a question, the question is also embedded into a vector. The system searches the vector database for the chunks most similar to the question vector. These top-k chunks are then injected into the prompt as context, and the language model generates an answer based on that context.
+
+This approach has several advantages. First, it reduces hallucination because the model is grounded in retrieved facts. Second, it allows the knowledge base to be updated without retraining the model. Third, it makes the system more transparent, since you can show the user which source documents were used to generate the answer.
+
+Chunking strategy is one of the most important design decisions in a RAG pipeline. Chunks that are too small may lack enough context to be useful. Chunks that are too large may introduce noise and exceed the model's context window. Overlapping chunks help ensure that important information that spans a boundary is not lost.
+
+Embedding quality also matters significantly. Different embedding models have different strengths. Some are optimised for semantic similarity, others for keyword matching. Hybrid search, which combines dense vector search with sparse keyword search, often outperforms either approach alone.
+
+Evaluation of a RAG system typically involves measuring faithfulness (does the answer reflect the retrieved context?), relevance (were the right chunks retrieved?), and answer correctness (is the final answer accurate?). Frameworks like RAGAS provide automated metrics for these dimensions.
