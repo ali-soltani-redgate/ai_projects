@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import ollama
+
 
 def main():
 
@@ -8,7 +10,17 @@ def main():
 
     # Chunk the text into smaller pieces (e.g. 50 tokens, with overlap)
     chunks = chunk_text(content)
-
+    
+    # Embed the chunks using a simple embedding method (e.g. TF-IDF, or a pre-trained model)
+    embeddings = embed_chunks(chunks)
+    print(f"Embedded {len(embeddings)} chunks, dimension: {len(embeddings[0])}")
+    
+    
+def embed_chunks(chunks: list[str]) -> list[list[float]]:
+    return [
+        ollama.embeddings(model="nomic-embed-text", prompt=chunk)["embedding"]
+        for chunk in chunks
+    ]
 
 def load_documents() -> str:
     # Load files (PDFs, markdown, .txt) from a local folder
