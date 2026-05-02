@@ -1,0 +1,15 @@
+[project]
+name = "ask-my-docs"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
+
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[project.scripts]
+ask-my-docs = "ask_my_docs.main:main"
