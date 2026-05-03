@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+.chroma/chroma.sqlite3
+.chroma/78ca4b79-2a24-4a41-88ec-ddc6a6b01580/data_level0.bin
+.chroma/78ca4b79-2a24-4a41-88ec-ddc6a6b01580/header.bin
+.chroma/78ca4b79-2a24-4a41-88ec-ddc6a6b01580/length.bin
+.chroma/78ca4b79-2a24-4a41-88ec-ddc6a6b01580/link_lists.bin
