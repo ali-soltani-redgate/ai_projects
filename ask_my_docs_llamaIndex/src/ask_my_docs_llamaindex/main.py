@@ -12,6 +12,8 @@ def main():
     print(f"Loaded {len(documents)} document(s).")
 
     # 2. Chunk the text into smaller pieces (e.g. 50 tokens, with overlap)
+    # Each node is one small text segment plus metadata, not a whole file.
+    # Metadata can include file name, chunk index, etc. (not used in this example, but can be helpful for retrieval and debugging). 
     nodes = chunk_documents(documents, chunk_size=50, chunk_overlap=5)
     print(f"Created {len(nodes)} chunk(s).")
 
