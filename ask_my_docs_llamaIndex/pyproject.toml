@@ -7,3 +7,10 @@ requires-python = ">=3.12"
 dependencies = [
     "llama-index>=0.14.21",
 ]
+
+[build-system]
+requires = ["uv_build"]
+build-backend = "uv_build"
+
+[project.scripts]
+ask-my-docs = "ask_my_docs_llamaindex.main:main"
