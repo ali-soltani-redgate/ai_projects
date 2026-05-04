@@ -71,7 +71,7 @@ def generate_answer(question: str, context_chunks: list[str]) -> str:
             }
         ]
     )
-    return response.message.content  # Ollama format, not OpenAI
+    return response.message.content or "No response generated"  # Ollama format, not OpenAI
 
 
 def retrieve(question: str, collection: chromadb.Collection, top_k: int = 3) -> list[str]:
@@ -85,7 +85,7 @@ def retrieve(question: str, collection: chromadb.Collection, top_k: int = 3) -> 
         n_results=top_k,
     )
 
-    chunks = results["documents"][0]  # list of top-k matching chunks
+    chunks = results["documents"][0] if results["documents"] else []  # list of top-k matching chunks
     for i, chunk in enumerate(chunks):
         print(f"Result {i + 1}:\n{chunk}\n")
 
@@ -93,13 +93,14 @@ def retrieve(question: str, collection: chromadb.Collection, top_k: int = 3) -> 
 
 
 def store_in_chroma(chunks: list[str], embeddings: list[list[float]]) -> chromadb.Collection:
+    import numpy as np
     client = chromadb.PersistentClient(path=".chroma")  # saves to disk
     collection = client.get_or_create_collection("my_docs")
 
     collection.add(
         ids=[str(i) for i in range(len(chunks))],
         documents=chunks,
-        embeddings=embeddings,
+        embeddings=np.array(embeddings),
     )
     print(f"Stored {len(chunks)} chunks in Chroma")
 
@@ -117,10 +118,11 @@ def load_documents() -> str:
     # Load files (PDFs, markdown, .txt) from a local folder
     # Parse raw text out of each file
     docs_path = Path(__file__).parent / "documents"
+    content = ""
     for doc in docs_path.glob("*.txt"):
         print(f"Reading document: {doc.name}")
         with open(doc, "r") as f:
-            content = f.read()
+            content += f.read()
             print(f"Content of {doc.name}:\n{content}\n")
     return content
 
