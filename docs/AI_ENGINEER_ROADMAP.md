@@ -43,6 +43,7 @@
 - [ ] OpenAI / Azure OpenAI API
 - [ ] Anthropic, Google Gemini, open-source models (Llama, Mistral, Qwen)
 - [ ] Token economics (context windows, pricing, rate limits)
+- [ ] Context length management (map-reduce, sliding windows, recursive summarization)
 - [ ] Structured output (JSON mode, function calling, tool use)
 
 ### 3.2 Retrieval-Augmented Generation (RAG)
@@ -52,6 +53,8 @@
 - [ ] Hybrid search (vector + keyword/BM25)
 - [ ] Reranking (Cohere, cross-encoders)
 - [ ] Evaluation of RAG pipelines (faithfulness, relevance, recall)
+- [ ] GraphRAG (knowledge-graph-enhanced retrieval)
+- [ ] Agentic RAG (agent-driven dynamic retrieval decisions)
 
 ### 3.3 Fine-Tuning & Customization
 - [ ] When to fine-tune vs. prompt vs. RAG (decision framework)
@@ -59,6 +62,7 @@
 - [ ] Dataset preparation & curation
 - [ ] RLHF / DPO (alignment concepts)
 - [ ] Running fine-tunes (OpenAI, Hugging Face, Axolotl)
+- [ ] Distillation (training smaller models to mimic larger ones)
 
 ---
 
@@ -87,6 +91,12 @@
 - [ ] Supervisor / worker patterns
 - [ ] Parallel vs. sequential execution
 
+### 4.5 Human-in-the-Loop (HITL)
+- [ ] Approval gates and escalation logic
+- [ ] When to pause and ask a human vs. proceed autonomously
+- [ ] Feedback collection and correction loops
+- [ ] Audit trails for agent decisions
+
 ---
 
 ## 5. MLOps & LLMOps
@@ -97,11 +107,15 @@
 - [ ] Streaming responses (SSE, WebSockets)
 - [ ] Containerization (Docker for ML workloads)
 - [ ] GPU infrastructure basics (A100, H100, cloud GPU options)
+- [ ] Quantization (GPTQ, AWQ, GGUF) for serving cost/latency optimization
+- [ ] Batch APIs (OpenAI Batch, Anthropic Batch) for async large-scale LLM jobs
+- [ ] LLM routing (LiteLLM, routing by complexity/cost between models)
 
 ### 5.2 Monitoring & Observability
 - [ ] LLM observability (LangSmith, Langfuse, Logfire, Phoenix, Weights & Biases)
 - [ ] Tracing agent execution
 - [ ] Cost tracking & optimization
+- [ ] Semantic & prompt caching (Redis, GPTCache, native API prompt caching)
 - [ ] Latency profiling
 
 ### 5.3 Evaluation & Testing
@@ -158,20 +172,21 @@
 - [ ] Small language models (SLMs) for edge/on-device
 - [ ] Mixture of Experts (MoE) architectures
 - [ ] Reasoning models (o1, o3, DeepSeek-R1)
-- [ ] AI compiler & code generation systems
-- [ ] Agentic coding (Copilot agent mode, Cursor, Devin-style)
+- [ ] AI-assisted code generation systems (Copilot, Cursor, Devin-style)
+- [ ] Computer use & browser agents (Anthropic computer use, Playwright-based agents)
+- [ ] Agentic coding workflows (agent mode, multi-file edits, test generation)
 
 ---
 
-## Suggested Learning Path (for someone 6 months in)
+## Suggested Learning Path
 
 | Phase | Focus | Timeframe |
 |-------|-------|-----------|
-| **Now** | Assess gaps in sections 1–3 above | 1 week |
-| **Phase 1** | RAG deep-dive + vector DBs + eval | 1–2 months |
-| **Phase 2** | Agents & orchestration (section 4) | 1–2 months |
-| **Phase 3** | LLMOps, monitoring, production patterns | 1–2 months |
-| **Phase 4** | Fine-tuning + advanced topics | ongoing |
+| **Phase 0** | Assess gaps in sections 1–3, fill math/Python holes | 1–2 weeks |
+| **Phase 1** | LLM APIs + prompt engineering + RAG deep-dive | 1–2 months |
+| **Phase 2** | Agents, orchestration, HITL (section 4) | 1–2 months |
+| **Phase 3** | LLMOps, monitoring, evals, production patterns | 1–2 months |
+| **Phase 4** | Fine-tuning, distillation, advanced topics | ongoing |
 
 ---
 
@@ -182,6 +197,16 @@
 3. Prioritize based on what your current/target role demands
 4. Build projects that combine multiple skills (e.g., a RAG agent with eval pipeline)
 
+## Daily Habit
+
+| Block | Activity | Time |
+|-------|----------|------|
+| **Concept** | Read / watch one topic from the roadmap | 30 min |
+| **Code** | Implement or experiment with that topic | 30 min |
+| **Note** | Write one paragraph on what you learned | 5 min |
+
+> Consistency beats intensity. One hour every day beats a weekend binge.
+
 ---
 
-*Last updated: 2025-05-02*
+*Last updated: 2026-05-07*
