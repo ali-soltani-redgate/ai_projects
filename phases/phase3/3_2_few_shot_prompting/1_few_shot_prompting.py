@@ -70,9 +70,10 @@ def call_ollama_model(system_prompt: str, user_prompt: str, examples: list) -> s
     messages.append({"role": "user", "content": user_prompt})
 
     stream = chat(
-        model="gemma3:4b",
+        model="gemma3:12b",
         messages=messages,
-        stream=True,)
+        stream=True,
+        options={"temperature": 0},)
     
     parts = []
     for event in stream:
