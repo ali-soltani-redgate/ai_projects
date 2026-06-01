@@ -27,4 +27,4 @@ jobs:
               run: uv sync --no-dev
             - name: Verify app imports
               run: |
-                uv run python -c "from customer_profiler.api.main import app; print(f'FastAPI app: {app.title}')"
+                uv run python -c "from api.main import app; print(f'FastAPI app: {app.title}')"
