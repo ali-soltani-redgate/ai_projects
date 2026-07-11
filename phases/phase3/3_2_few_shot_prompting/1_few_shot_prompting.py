@@ -15,10 +15,13 @@
 
 
 from enum import Enum
-import argparse
 
+from dotenv import load_dotenv
+from langfuse import get_client
+import argparse
 from ollama import chat
 
+load_dotenv()
 
 def main():
     system_prompt_value_list = """You are a helpful assistant that generates datasets based on examples.
@@ -63,26 +66,41 @@ def call_ollama_model(system_prompt: str, user_prompt: str, examples: list) -> s
     Returns:
         str: The generated output based on the examples and prompts.
     """
+    llm_model = "gemma3:12b"  # Replace with the actual model name you want to uses
+    messages = build_prompt_template(system_prompt, user_prompt, examples)
+
+    langfuse = get_client()
+    with langfuse.start_as_current_observation(
+        name="ollama-chat",
+        as_type="generation",
+        model=llm_model,
+        input=messages,
+    ) as generation:
+        stream = chat(
+            model=llm_model,
+            messages=messages,
+            stream=True,
+            options={"temperature": 0},)
+
+        parts = []
+        for event in stream:
+            if event.message and event.message.content:
+                print(event.message.content, end="", flush=True)
+                parts.append(event.message.content)
+        print()  # for newline after streaming is done
+        summary = "".join(parts).strip()
+
+        generation.update(output=summary)
+
+    return summary
+
+def build_prompt_template(system_prompt, user_prompt, examples):
     messages = [{"role": "system", "content": system_prompt}]
     for example in examples:
         messages.append({"role": "user", "content": example["input"]})
         messages.append({"role": "assistant", "content": example["output"]})
     messages.append({"role": "user", "content": user_prompt})
-
-    stream = chat(
-        model="gemma3:12b",
-        messages=messages,
-        stream=True,
-        options={"temperature": 0},)
-    
-    parts = []
-    for event in stream:
-        if event.message and event.message.content:
-            print(event.message.content, end="", flush=True)
-            parts.append(event.message.content)
-    print()  # for newline after streaming is done
-    summary = "".join(parts).strip()
-    return summary
+    return messages
 
 class DatasetType(Enum):
     VALUE_LIST = "value_list"
