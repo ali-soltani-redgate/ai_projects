@@ -138,6 +138,67 @@ Add robustness:
 
 ---
 
+## Problem Statement: Async Task Queue Agent
+
+### Overview
+Build a `TaskAgent` that manages task execution through explicit state transitions using Python's `asyncio`.
+
+### Input
+```python
+class Task:
+    id: str
+    func: Callable[..., Coroutine]  # async function
+    args: tuple = ()
+    kwargs: dict = {}
+```
+
+### Process Flow
+1. Agent starts in `idle` state
+2. Receive task → transition to `processing`
+3. Execute async function with 5s timeout
+4. On success → `completed`, on timeout/error → `failed`
+5. After 1s, auto-return to `idle`
+
+### Output
+```python
+class TaskResult:
+    task_id: str
+    state: str  # 'completed' | 'failed'
+    result: Any | None
+    error: Exception | None
+    execution_time: float
+```
+
+### State Diagram
+```
+┌──────┐
+│ IDLE │
+└───┬──┘
+    │ receive_task()
+    ▼
+┌────────────┐
+│ PROCESSING │ (timeout: 5s)
+└───┬────┬───┘
+    │    │
+  ok│    │timeout/error
+    ▼    ▼
+┌───────┬────────┐
+│COMPLETED FAILED│
+└───┬────┴────┬──┘
+    │ wait 1s │
+    └────┬────┘
+         ▼
+       IDLE
+```
+
+### Constraints
+- Use `asyncio` for concurrent execution
+- State transitions must be type-safe
+- Guard against invalid transitions (e.g., no double-processing)
+- Each state must have `entry()` and `exit()` handlers
+
+---
+
 ## Implementation Roadmap
 
 ### Week 1: Core Implementation
