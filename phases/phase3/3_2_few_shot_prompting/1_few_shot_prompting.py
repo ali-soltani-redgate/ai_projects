@@ -17,7 +17,7 @@
 from enum import Enum
 
 from dotenv import load_dotenv
-from langfuse import get_client
+from langfuse import get_client, observe
 import argparse
 from ollama import chat
 
@@ -50,47 +50,39 @@ def main():
     dataset_type = DatasetType(args.dataset_type)
     examples = get_samples_by_dataset_type(dataset_type)
     system_prompt = system_prompt_pattern if dataset_type == DatasetType.PATTERN else system_prompt_value_list
+    messages = build_prompt_template(system_prompt, user_prompt, examples)
+
     print("Generating output...")
-    response = call_ollama_model(system_prompt, user_prompt, examples)
+    response = call_ollama_model(messages) 
     print("Output:", response)
     
 
-def call_ollama_model(system_prompt: str, user_prompt: str, examples: list) -> str:
+@observe(as_type="generation")
+def call_ollama_model(messages: list) -> str:
     """
-    This function simulates calling an Ollama model with a system prompt, user prompt, and examples for few-shot prompting
+    This function simulates calling an Ollama model with a list of messages for few-shot prompting
     and streams the generated summary in real-time.
     Args:
-        system_prompt (str): The system prompt that defines the behavior of the assistant.
-        user_prompt (str): The user prompt that contains the new input for which we want to generate an output.
-        examples (list): A list of examples in the form of input-output pairs that the model can learn from.
+        messages (list): A list of messages including the system prompt, user prompt, and examples.
     Returns:
         str: The generated output based on the examples and prompts.
     """
-    llm_model = "gemma3:12b"  # Replace with the actual model name you want to uses
-    messages = build_prompt_template(system_prompt, user_prompt, examples)
+    llm_model = "tinyllama"  # Replace with the actual model name you want to uses
+    get_client().update_current_generation(model=llm_model)
 
-    langfuse = get_client()
-    with langfuse.start_as_current_observation(
-        name="ollama-chat",
-        as_type="generation",
+    stream = chat(
         model=llm_model,
-        input=messages,
-    ) as generation:
-        stream = chat(
-            model=llm_model,
-            messages=messages,
-            stream=True,
-            options={"temperature": 0},)
+        messages=messages,
+        stream=True,
+        options={"temperature": 0},)
 
-        parts = []
-        for event in stream:
-            if event.message and event.message.content:
-                print(event.message.content, end="", flush=True)
-                parts.append(event.message.content)
-        print()  # for newline after streaming is done
-        summary = "".join(parts).strip()
-
-        generation.update(output=summary)
+    parts = []
+    for event in stream:
+        if event.message and event.message.content:
+            print(event.message.content, end="", flush=True)
+            parts.append(event.message.content)
+    print()  # for newline after streaming is done
+    summary = "".join(parts).strip()
 
     return summary
 
