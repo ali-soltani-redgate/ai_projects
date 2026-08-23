@@ -6,4 +6,5 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "langgraph>=1.2.11",
+    "ollama>=0.6.2",
 ]
