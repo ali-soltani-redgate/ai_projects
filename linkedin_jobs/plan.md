@@ -8,4 +8,4 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - [x] Add packages needed for the agent and LLMs
     - [x] Add langchain
     - [x] Add langchain-anthropic to connect to Anthropic models
-  - [ ] Create env file for the Anthropic API key
+  - [x] Create env file for the Anthropic API key
