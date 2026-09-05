@@ -10,3 +10,4 @@ We want to create an agentic systems to search suitable jobs and matches with in
     - [x] Add langchain-anthropic to connect to Anthropic models
   - [x] Create env file for the Anthropic API key
   - [x] Add python-dotenv package to load the API key
+  - [x] Connect to claude haiku model and test it with simple prompt
