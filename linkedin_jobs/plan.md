@@ -1,9 +1,9 @@
 # Plan to learn Agentic systems in pratice
 We want to create an agentic systems to search suitable jobs and matches with input CV. We are going to build this agent step by step and take baby steps. The end goal is build a secure system on AWS
 
-## Phase 1
+## Phase 1 - Create a simple app to call claude models
 
-- [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
+- [x] Create a simple app to call claude models
   - [x] Init a project with uv
   - [x] Add packages needed for the agent and LLMs
     - [x] Add langchain
@@ -12,7 +12,6 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - [x] Add python-dotenv package to load the API key
   - [x] Connect to claude haiku model and test it with simple prompt
   - [x] Refactor agent to use the model with ChatAnthropic
-
 
 ## Tips
 
