@@ -12,3 +12,13 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - [x] Add python-dotenv package to load the API key
   - [x] Connect to claude haiku model and test it with simple prompt
   - [x] Refactor agent to use the model with ChatAnthropic
+
+
+## Tips
+
+### Interperter in VS code
+
+- If the interperter complains about the packages, you need to do this:
+  - Check the active virtual env and activate it if needed
+  - Set the right path for the interpreter
+  - Run uv syn
