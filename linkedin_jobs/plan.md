@@ -18,8 +18,14 @@ We want to create an agentic systems to search suitable jobs and matches with in
 - [x] Create an agent with LangChain without tool
 - [x] Invoke the agent with a simple user prompt
 - [x] Refactor the code so we can pass `HumanMessage` rather than pass a raw message
-- [ ] Print the agent's response
-  - [ ] As LangChain returns response as the agent state, we need to print last message, which is AIMessage
+- [x] Print the agent's response
+  - [x] As LangChain returns response as the agent state, we need to print last message, which is AIMessage
+
+## Phase 3 - Add an observability tool
+
+- [ ] Add langfuse
+- [ ] Host it locally
+- [ ] Integrate the agent with langfuse
 - [ ] Create a simple agent with LangChain to call a simple tool
   
 - [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
@@ -32,3 +38,15 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - Check the active virtual env and activate it if needed
   - Set the right path for the interpreter
   - Run uv syn
+
+## Comparision
+
+### LangChain
+
+- We should pass the user prompt with messages format
+  - PydanthicAI would be cleaner
+    - Ex: result = agent.run_sync("What is the capital of France?")
+
+- We should get the agent's response with `content = result["messages"][-1].content`
+  - PydanthicAI would be cleaner
+    - Ex: `print(result.output)`
