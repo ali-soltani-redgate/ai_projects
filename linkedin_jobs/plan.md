@@ -17,7 +17,9 @@ We want to create an agentic systems to search suitable jobs and matches with in
 
 - [x] Create an agent with LangChain without tool
 - [x] Invoke the agent with a simple user prompt
-- [ ] Refactor the code so we can pass `HumanMessage` rather than pass a raw message
+- [x] Refactor the code so we can pass `HumanMessage` rather than pass a raw message
+- [ ] Print the agent's response
+  - [ ] As LangChain returns response as the agent state, we need to print last message, which is AIMessage
 - [ ] Create a simple agent with LangChain to call a simple tool
   
 - [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
