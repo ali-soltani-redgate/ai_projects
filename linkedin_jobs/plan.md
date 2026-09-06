@@ -13,6 +13,15 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - [x] Connect to claude haiku model and test it with simple prompt
   - [x] Refactor agent to use the model with ChatAnthropic
 
+## Phase 2 - Create a simple agent with LangChain to call a simple tool
+
+- [x] Create an agent with LangChain without tool
+- [x] Invoke the agent with a simple user prompt
+- [ ] Refactor the code so we can pass `HumanMessage` rather than pass a raw message
+- [ ] Create a simple agent with LangChain to call a simple tool
+  
+- [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
+
 ## Tips
 
 ### Interperter in VS code
