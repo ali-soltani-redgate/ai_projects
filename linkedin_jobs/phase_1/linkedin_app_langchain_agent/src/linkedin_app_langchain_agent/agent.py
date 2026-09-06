@@ -1,11 +1,11 @@
 
-from langchain.chat_models import init_chat_model
+from langchain_anthropic import ChatAnthropic
 
 from dotenv import load_dotenv
 load_dotenv()
 
 # Use Haiku model
-model = init_chat_model("claude-haiku-4-5")
+model = ChatAnthropic(model_name="claude-haiku-4-5", timeout=600, stop=[])
 response = model.invoke("What is the capital of France?")
 print(response.content)
 
