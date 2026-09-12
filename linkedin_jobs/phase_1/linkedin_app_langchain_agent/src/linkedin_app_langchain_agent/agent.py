@@ -24,10 +24,8 @@ def setup_langfuse() -> CallbackHandler:
     langfuse = get_client()
 
     # Check that the connection works
-    if langfuse.auth_check():
-        print("Langfuse connected successfully!")
-    else:
-        print("Langfuse authentication failed!")
+    if not langfuse.auth_check():
+        raise RuntimeError("Langfuse authentication failed!")
 
     # Initialize the Langfuse handler
     langfuse_handler = CallbackHandler()
