@@ -23,8 +23,11 @@ We want to create an agentic systems to search suitable jobs and matches with in
 
 ## Phase 3 - Add an observability tool
 
-- [ ] Add langfuse
-- [ ] Host it locally
+- [x] Host it locally
+  - [x] Clone the repo
+  - [x] Run it on Docker
+  - [x] Check the [host](http://localhost:3000)
+- [x] Add langfuse package
 - [ ] Integrate the agent with langfuse
 - [ ] Create a simple agent with LangChain to call a simple tool
   
