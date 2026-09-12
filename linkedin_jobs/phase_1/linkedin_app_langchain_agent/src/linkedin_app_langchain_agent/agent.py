@@ -12,15 +12,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-def setup_langfuse() -> CallbackHandler:
-
-    # Initialize Langfuse with host from environment
-    Langfuse(
-        public_key=os.getenv("LANGFUSE_PUBLIC_KEY"),
-        secret_key=os.getenv("LANGFUSE_SECRET_KEY"),
-        host=os.getenv("LANGFUSE_HOST", "http://localhost:3000"),
-        debug=True
-    )
+def setup_langfuse() -> CallbackHandler:    
     """
     Setup and return a Langfuse callback handler. It loads the API keys from the environment variables automatically.
 
@@ -45,7 +37,7 @@ def setup_langfuse() -> CallbackHandler:
 
 langfuse_handler = setup_langfuse()
 # Use Haiku model
-model = ChatAnthropic(model_name="claude-sonnet-4-5", timeout=600, stop=[])
+model = ChatAnthropic(model_name="claude-haiku-4-5", timeout=600, stop=[])
 agent = create_agent(model)
 user_prompt = "What is the capital of France?"
 
