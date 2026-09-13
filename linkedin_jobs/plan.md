@@ -37,7 +37,8 @@ We want to create an agentic systems to search suitable jobs and matches with in
 - [x] Create a simple agent with LangChain to call a simple tool
 - [ ] A simple agent with LangChain to call a simple tool and returns a structured output
   - [x] Follow this [doc](https://docs.langchain.com/oss/python/langchain/structured-output)
-  - [ ] Install pydantic
+  - [x] Install pydantic
+  - [x] Add response_format to agent
 - [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
 
 ## Phase 5 - Add evalutors
@@ -51,6 +52,41 @@ We want to create an agentic systems to search suitable jobs and matches with in
 - [ ] Offline evaluators
 
 ## Tips
+
+### Observibility insights
+
+#### model latency and cost
+
+- Claude-Haiku-4-5
+  - latency
+    - ~ 0.85s
+  - cost
+    - $0.000064
+- Claude-Sonnet-4-5
+  - latency
+    - ~ 1.10s
+  - cost
+    - $0.000192
+- Claude-Haiku-4-5 with a tool call, no structured output
+  - latency
+    - ~ 2.00s
+  - cost
+    - $0.001727
+- Claude-Haiku-4-5 with a tool call and structured output
+  - latency
+    - ~ 11.70s
+  - cost
+    - $0.002180
+- Claude-Sonnet-4-5 with a tool call, no structured output
+  - latency
+    - ~ 3.15s
+  - cost
+    - $0.00500
+- Claude-Haiku-4-5 with a tool call and structured output
+  - latency
+    - ~ 11.70s
+  - cost
+    - $0.002185
 
 ### Interperter in VS code
 

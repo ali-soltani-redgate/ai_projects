@@ -8,6 +8,8 @@ from langchain_core.messages import HumanMessage
 from langfuse import Langfuse, get_client
 from langfuse.langchain import CallbackHandler
 
+from pydantic import BaseModel, Field
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -33,6 +35,15 @@ def setup_langfuse() -> tuple[Langfuse, CallbackHandler]:
     return langfuse, langfuse_handler
 
 
+class WeatherInfo(BaseModel):
+    city: str = Field(...,
+                      description="The name of the city to get the weather for.")
+    temperature: float = Field(...,
+                               description="The current temperature in the city.")
+    condition: str = Field(...,
+                           description="The current weather condition in the city.")
+
+
 def get_weather(city: str) -> str:
     """
     Get the weather for a given city.
@@ -44,7 +55,8 @@ def get_weather(city: str) -> str:
         str: The weather information for the city.
     """
     # Placeholder implementation, replace with actual weather API call
-    return f"The weather in {city} is sunny."
+    return f"The weather in {city} is sunny with a temperature of 25°C."
+
 
 def set_up_agent():
     """
@@ -54,8 +66,11 @@ def set_up_agent():
         Agent: The initialized Langchain agent.
     """
     # Use Haiku model
-    model = ChatAnthropic(model_name="claude-haiku-4-5", timeout=600, stop=[])
-    agent = create_agent(model, tools=[get_weather])
+    model = ChatAnthropic(model_name="claude-sonnet-4-5", timeout=600, stop=[])
+    agent = create_agent(
+        model, tools=[get_weather],
+        response_format=WeatherInfo
+    )
     return agent
 
 
