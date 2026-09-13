@@ -32,6 +32,20 @@ def setup_langfuse() -> tuple[Langfuse, CallbackHandler]:
 
     return langfuse, langfuse_handler
 
+
+def get_weather(city: str) -> str:
+    """
+    Get the weather for a given city.
+
+    Args:
+        city (str): The name of the city.
+
+    Returns:
+        str: The weather information for the city.
+    """
+    # Placeholder implementation, replace with actual weather API call
+    return f"The weather in {city} is sunny."
+
 def set_up_agent():
     """
     Set up and return a Langchain agent using the Haiku model.
@@ -41,8 +55,9 @@ def set_up_agent():
     """
     # Use Haiku model
     model = ChatAnthropic(model_name="claude-haiku-4-5", timeout=600, stop=[])
-    agent = create_agent(model)
+    agent = create_agent(model, tools=[get_weather])
     return agent
+
 
 def call_agent(user_prompt: str, agent, langfuse_handler):
     """
@@ -65,7 +80,7 @@ def main():
     langfuse, langfuse_handler = setup_langfuse()
     agent = set_up_agent()
 
-    user_prompt = "What is the capital of France?"
+    user_prompt = "What is the weather in Cambridge?"
     response = call_agent(user_prompt, agent, langfuse_handler)
     # Langchain returns the state of the agent's conversation, so the last message is the most recent response.
     content = response["messages"][-1].content
@@ -73,6 +88,7 @@ def main():
 
     # Ensure all buffered events are sent to Langfuse before the script exits
     langfuse.flush()
+
 
 if __name__ == "__main__":
     main()

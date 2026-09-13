@@ -28,10 +28,27 @@ We want to create an agentic systems to search suitable jobs and matches with in
   - [x] Run it on Docker
   - [x] Check the [host](http://localhost:3000)
 - [x] Add langfuse package
-- [ ] Integrate the agent with langfuse
-- [ ] Create a simple agent with LangChain to call a simple tool
-  
+- [x] Integrate the agent with langfuse with debug mode
+- [x] Integrate the agent with langfuse without debug mode
+  - [x] No need to set LangFuse with keys
+
+## Phase 4 - Agent with calling tools
+
+- [x] Create a simple agent with LangChain to call a simple tool
+- [ ] A simple agent with LangChain to call a simple tool and returns a structured output
+  - [x] Follow this [doc](https://docs.langchain.com/oss/python/langchain/structured-output)
+  - [ ] Install pydantic
 - [ ] Create a simple agent with LangChain to get the user location, job name and type of job and return list of jobs
+
+## Phase 5 - Add evalutors
+
+- [ ] Human feedback — a person rates the response
+- [ ] LLM-as-a-judge — another LLM evaluates the response
+  - [ ] Check scores in Langfuse
+- [ ] Automated evaluation — your own code/function calculates a score
+- [ ] User feedback — thumbs up/down, ratings, etc
+- [ ] Online evaluators
+- [ ] Offline evaluators
 
 ## Tips
 
