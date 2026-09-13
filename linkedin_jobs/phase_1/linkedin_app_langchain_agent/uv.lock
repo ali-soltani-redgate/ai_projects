@@ -568,6 +568,7 @@ dependencies = [
     { name = "langchain" },
     { name = "langchain-anthropic" },
     { name = "langfuse" },
+    { name = "pydantic" },
     { name = "python-dotenv" },
 ]
 
@@ -576,6 +577,7 @@ requires-dist = [
     { name = "langchain", specifier = ">=1.4.0" },
     { name = "langchain-anthropic", specifier = ">=1.7.1" },
     { name = "langfuse", specifier = ">=4.15.2" },
+    { name = "pydantic", specifier = ">=2.13.5" },
     { name = "python-dotenv", specifier = ">=1.2.3" },
 ]
 
